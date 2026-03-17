@@ -985,163 +985,38 @@
                 max-height: 600px;
             }
         }
-    </style>
-</head>
-<body>
-    <div class="hearts-bg" id="heartsBg"></div>
 
-    <!-- Secret Modal -->
-    <div class="secret-modal" id="secretModal">
-
-        /* ========== FIREBASE STYLES ========== */
-        #loadingScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-        }
+        /* === Firebase Styles === */
+        #loadingScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-primary); display: flex; align-items: center; justify-content: center; z-index: 10000; }
         #loadingScreen.hidden { display: none; }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255, 107, 157, 0.1);
-            border-top-color: var(--accent-primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+        .spinner { width: 50px; height: 50px; border: 4px solid rgba(255, 107, 157, 0.1); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        #loginScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            z-index: 9999;
-        }
-        #loginScreen.hidden { display: none; }
-        #adminPanel.hidden { display: none; }
-        .login-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 50px;
-            max-width: 450px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-        .login-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 40px;
-        }
-        .form-input {
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 1rem;
-            width: 100%;
-            margin-bottom: 16px;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent-primary);
-        }
-        .btn-google {
-            background: white;
-            color: #333;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 16px;
-        }
-        .error-message {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid var(--error);
-            color: var(--error);
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            display: none;
-            margin-bottom: 16px;
-        }
+        #loginScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 9999; }
+        #loginScreen.hidden, #adminPanel.hidden { display: none; }
+        .login-card { background: var(--bg-card); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 24px; padding: 50px; max-width: 450px; width: 100%; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
+        .login-title { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 700; text-align: center; background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 40px; }
+        .form-input { padding: 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: 12px; color: var(--text-primary); font-family: 'DM Sans', sans-serif; font-size: 1rem; width: 100%; margin-bottom: 16px; }
+        .form-input:focus { outline: none; border-color: var(--accent-primary); }
+        .btn-google { background: white; color: #333; border: none; padding: 16px; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 16px; }
+        .error-message { background: rgba(239, 68, 68, 0.1); border: 1px solid var(--error); color: var(--error); padding: 12px; border-radius: 8px; font-size: 0.9rem; display: none; margin-bottom: 16px; }
         .error-message.show { display: block; }
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-        }
-        .message-compose {
-            margin-top: 30px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-        }
-        .message-textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-family: 'DM Sans', sans-serif;
-            resize: vertical;
-            margin-bottom: 16px;
-        }
+        .message-compose { margin-top: 30px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+        .message-textarea { width: 100%; min-height: 120px; padding: 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: 12px; color: var(--text-primary); font-family: 'DM Sans', sans-serif; resize: vertical; margin-bottom: 16px; }
     </style>
 </head>
 <body>
-    <!-- Firebase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-    <!-- Loading -->
-    <div id="loadingScreen">
-        <div class="spinner"></div>
-    </div>
+    <div id="loadingScreen"><div class="spinner"></div></div>
 
-    <!-- Login -->
     <div id="loginScreen" class="hidden">
         <div class="login-card">
             <h1 class="login-title">💝 Uma Jornada Especial ❤️</h1>
             <div id="errorMsg" class="error-message"></div>
-            <input type="email" id="emailInput" class="form-input" placeholder="Email">
-            <input type="password" id="passwordInput" class="form-input" placeholder="Senha">
+            <input type="email" id="emailInput" class="form-input" placeholder="Email" autocomplete="email">
+            <input type="password" id="passwordInput" class="form-input" placeholder="Senha" autocomplete="current-password">
             <button class="submit-btn" id="loginBtn">Entrar</button>
             <button class="btn-google" id="googleBtn">
                 <svg width="20" height="20" viewBox="0 0 24 24">
@@ -1159,26 +1034,26 @@
         </div>
     </div>
 
-    <!-- Admin Panel (versão simplificada) -->
     <div id="adminPanel" class="hidden">
         <div class="container">
-            <div class="admin-header">
-                <h1 style="font-family: 'Syne', sans-serif;">🎛️ Admin - Betina</h1>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;">
+                <h1 style="font-family: 'Syne', sans-serif;">🎛️ Painel Admin</h1>
                 <div>
                     <button class="btn-secondary" id="toggleGameBtn">🎮 Modo Jogador</button>
                     <button class="btn-secondary" id="logoutBtnAdmin" style="margin-left: 12px;">Sair</button>
                 </div>
             </div>
-            <div id="adminContent">
-                <p style="text-align: center; padding: 40px; color: var(--text-secondary);">
-                    Painel admin carregando...
-                </p>
-            </div>
+            <p style="text-align: center; padding: 40px; color: var(--text-secondary);">Bem-vinda, Betina! Use "Modo Jogador" para testar os jogos.</p>
         </div>
     </div>
 
-    <!-- Main App -->
     <div id="mainApp" class="hidden">
+    <div class="hearts-bg" id="heartsBg"></div>
+
+    <!-- Secret Modal -->
+    <div class="secret-modal" id="secretModal">
+        <div class="secret-content">
+            <h3>💝 Mensagem Secreta 💝</h3>
             <p id="secretText"></p>
             <button class="close-modal" onclick="closeSecret()">Fechar ❤️</button>
         </div>
@@ -1305,843 +1180,7 @@
         </div>
     </div>
 
-    <script>
-        // Game State
-        const gameState = {
-            quiz: false,
-            adivinhe: false,
-            verdadeirofalso: false,
-            frases: false,
-            timeline: false,
-            memoria: false
-        };
 
-        // Easter Egg - Heart Clicks
-        let heartClicks = 0;
-        const secretMessages = [
-            "A gente pode discordar de muita coisa… principalmente de música (porque tu claramente tem um gosto duvidoso), mas no resto da vida eu tenho absoluta certeza que escolhi a pessoa certa pra dividir tudo.",
-            "Tu é a única pessoa que consegue ser ao mesmo tempo meu lar, minha paz… e a pessoa que divide comigo a responsabilidade de servir aos gatos como verdadeiras funcionárias deles. Principalmente ao Rori e sua vontade de sachê insaciável.",
-            "Se amor fosse matéria da faculdade, eu já teria passado em todas — porque contigo eu aprendo todo dia que amar também é rir, implicar, dividir séries e escolher continuar juntas sempre.",
-            "Se existisse olimpíada de continuar dormindo depois do despertador, tu já teria várias medalhas de ouro. E eu seria a técnica responsável por te arrancar da cama todos os dias.",
-            "Tu pode até ser um pouco estabanada às vezes, mas é a pessoa mais incrível que eu já vi tropeçar nas próprias coisas com tanto charme."
-        ];
-
-        function heartClick() {
-            heartClicks++;
-            if (heartClicks === 3) {
-                const randomMsg = secretMessages[Math.floor(Math.random() * secretMessages.length)];
-                showSecretMessage(randomMsg);
-                heartClicks = 0;
-            }
-        }
-
-        function showSecretMessage(msg) {
-            document.getElementById('secretText').textContent = msg;
-            document.getElementById('secretModal').classList.add('show');
-        }
-
-        function closeSecret() {
-            document.getElementById('secretModal').classList.remove('show');
-        }
-
-        // Easter Egg - Secret Codes
-        let secretCodeInput = '';
-        const secretCodes = {
-            '070917': 'Esse foi o dia que mudou tudo… O primeiro beijo em uma festa que eu nunca vou esquecer! 💋',
-            '071017': 'Com uma caixa de quindim, você aceitou namorar comigo! Esse dia foi perfeito! 🍮❤️',
-            '260518': 'O dia do pedido de casamento! A Fiat Toro vermelha de brinquedo trazendo as alianças… Você me fez a pessoa mais feliz do mundo! 💍'
-        };
-
-        document.addEventListener('keypress', function(e) {
-            if (e.key >= '0' && e.key <= '9') {
-                secretCodeInput += e.key;
-                if (secretCodeInput.length > 6) {
-                    secretCodeInput = secretCodeInput.slice(-6);
-                }
-                if (secretCodes[secretCodeInput]) {
-                    showSecretMessage(secretCodes[secretCodeInput]);
-                    secretCodeInput = '';
-                }
-            }
-        });
-
-        // Quiz Data
-        const quizQuestions = [
-            {
-                question: "Quem sempre dorme primeiro?",
-                options: ["Betina", "Fernanda"],
-                correct: 0,
-                correctMsg: "Isso mesmo 😄 você realmente me conhece.",
-                errorMsg: "Hmm… acho que você dormiu antes de lembrar dessa.",
-                hint: "Pensa em quem reclama quando a outra fica no celular até tarde... É essa pessoa que já está roncando há horas! 😴"
-            },
-            {
-                question: "Pra onde foi o nosso primeiro passeio de moto?",
-                options: ["Lajeado", "Estrela", "Roca Sales"],
-                correct: 2,
-                correctMsg: "Boa! Esse passeio foi especial.",
-                errorMsg: "Ops! Tenta lembrar melhor...",
-                hint: "Rima com 'Oca Bales'... Só falta trocar a primeira letra! 🏍️ (Sério, você vai errar de novo? 😂)"
-            },
-            {
-                question: "Qual é o doce símbolo do nosso relacionamento?",
-                options: ["Pudim", "Quindim", "Brigadeiro"],
-                correct: 1,
-                correctMsg: "Acertou! Nosso doce favorito.",
-                errorMsg: "Não é esse não...",
-                hint: "É amarelinho, tem coco, e foi a escolha mais romântica pra pedir você em namoro! Se você errar essa de novo eu vou comer todos sozinha! 🍮😤"
-            },
-            {
-                question: "Qual foi o nosso primeiro apelido carinhoso?",
-                options: ["Pacote", "Amor", "Vida"],
-                correct: 0,
-                correctMsg: "Claro que você lembraria disso ❤️",
-                errorMsg: "Hmmm, pensa melhor...",
-                hint: "É algo que você recebe dos Correios... Só que esse aqui é especial e cheio de amor! 📦❤️ (E você ainda tá errando isso?! 😂)"
-            }
-        ];
-
-        // Track errors per question
-        let quizErrors = 0;
-
-        // Adivinhe Data
-        const adivinheQuestions = [
-            {
-                question: "Onde nos beijamos pela primeira vez?",
-                answer: "festa",
-                message: "Esse momento foi inesquecível.",
-                hint: "Tem música alta, gente dançando, bebida rolando... E a gente se beijou lá! Começa com F! 💃🎉"
-            },
-            {
-                question: "Qual a nossa comida favorita?",
-                answer: "sushi",
-                message: "Boa escolha… sempre.",
-                hint: "É japonês, tem peixe cru, vem com wasabi e shoyu... A gente SEMPRE pede! 🍣🥢"
-            },
-            {
-                question: "Qual foi a nossa primeira viagem?",
-                answer: "gramado",
-                message: "Gramado sempre vai ser um lugar especial pra gente.",
-                hint: "Cidade na serra gaúcha, friozinho, chocolate, Lago Negro... Tipo mini-Europa no RS! 🏔️🍫"
-            }
-        ];
-
-        // Track errors for Adivinhe
-        let adivinheErrors = 0;
-
-        // Verdadeiro ou Falso Data
-        const verdadeiroFalsoQuestions = [
-            {
-                question: "Betina já dormiu no meio de um filme",
-                correct: true,
-                correctMsg: "Verdade! 😴 E não foi só uma vez!",
-                errorMsg: "Ops! Isso é verdade sim!",
-                hint: "Quantas vezes você teve que me acordar porque eu tava roncando na metade do filme? TODAS! É verdadeiro! 😴🎬"
-            },
-            {
-                question: "Fernanda não fala sozinha tomando banho como se estivesse falando com alguém",
-                correct: false,
-                correctMsg: "Falso! 🚿 Ela fala sozinha sim, e muito!",
-                errorMsg: "Errou! Na verdade ela fala sim!",
-                hint: "Eu ouço você tendo conversas completas lá dentro! Você discute, argumenta, ri... É o melhor show de stand-up do banheiro! 😂 É FALSO!"
-            },
-            {
-                question: "Fernanda adora acordar cedo",
-                correct: false,
-                correctMsg: "Falso! 😂 Olimpíadas de continuar dormindo!",
-                errorMsg: "Nada disso! Ela odeia acordar cedo!",
-                hint: "'Vamos acordar, vamos levantar' - eu tenho que repetir isso quantas vezes? A resposta é FALSO! Você ODEIA acordar cedo! 🛌😴"
-            },
-            {
-                question: "Betina é insuportável quando está com fome ou com sono",
-                correct: true,
-                correctMsg: "Verdade absoluta! 😅",
-                errorMsg: "Isso é verdade sim!",
-                hint: "Hangry não tem tradução mas EU sim! Quando tá com fome ou sono eu viro um monstrinho! Você SABE disso! É VERDADEIRO! 👹😂"
-            },
-            {
-                question: "Betina tem boa memória e nunca esquece de nada",
-                correct: false,
-                correctMsg: "Falso! 🤭 A memória às vezes falha!",
-                errorMsg: "Que nada! Às vezes esquece sim!",
-                hint: "Quantas vezes você me pergunta 'onde tá minha carteira/chave/celular'? MUITAS! Minha memória não é das melhores! É FALSO! 🤦‍♀️"
-            },
-            {
-                question: "Fernanda é a mais organizada das duas",
-                correct: false,
-                correctMsg: "Falso! 😄 Organização não é o forte dela!",
-                errorMsg: "Errou! Ela não é a mais organizada não!",
-                hint: "'Fernanda é a que mais gosta de guardar coisas sem utilidade' - tá aí a dica! Organização é diferente de acumulação! 😂 É FALSO!"
-            }
-        ];
-
-        // Track errors for V/F
-        let vfErrors = 0;
-
-        // Frases Data
-        const frasesData = [
-            {
-                frase: "Fernanda, atende esse telefone, ___",
-                resposta: "tem ele pra bonito",
-                alternativas: ["tem ele pra bonito", "deixa tocar", "não vou atender"]
-            },
-            {
-                frase: "Vamos acordar, ___",
-                resposta: "vamos levantar",
-                alternativas: ["vamos levantar", "mais cinco minutos", "já vou"]
-            },
-            {
-                frase: "Fernanda, eu já te disse que ___",
-                resposta: "não se olha o óleo do carro no posto",
-                alternativas: ["não se olha o óleo do carro no posto", "você está certa", "vamos sair"]
-            },
-            {
-                frase: "Eu sou ___",
-                resposta: "um anjo na tua vida",
-                alternativas: ["um anjo na tua vida", "uma pessoa normal", "muito legal"]
-            },
-            {
-                frase: "Amor, pra de falar que ___",
-                resposta: "eu quero dormir",
-                alternativas: ["eu quero dormir", "estou ocupada", "depois conversamos"]
-            }
-        ];
-
-        // Timeline Data with personalized messages
-        const timelineEvents = [
-            { 
-                date: "07/09/2017", 
-                title: "Primeiro Beijo em uma festa", 
-                message: "Esse foi o dia que mudou tudo... O primeiro beijo que nunca vou esquecer. Você estava linda, e eu estava nervosa, mas foi perfeito. ❤️" 
-            },
-            { 
-                date: "24/09/2017", 
-                title: "Primeiro passeio de moto para Roca Sales", 
-                message: "Nossa primeira aventura juntas! Você segurando firme em mim, o vento no rosto, e aquele sentimento de que tudo estava começando. 🏍️💨" 
-            },
-            { 
-                date: "07/10/2017", 
-                title: "Pedido de Namoro com uma caixa de quindim", 
-                message: "Eu sabia que tinha que ser com quindim! Nosso doce favorito selando o início dessa jornada linda que a gente está vivendo juntas. 🍮✨" 
-            },
-            { 
-                date: "22/10/2017", 
-                title: "Primeira ida de moto para Lagoa da Harmonia", 
-                message: "A lagoa nunca pareceu tão bonita quanto naquele dia. Ou talvez fosse só porque você estava ao meu lado. 🌅" 
-            },
-            { 
-                date: "11/11/2017", 
-                title: "Meu primeiro doce para minha namorada", 
-                message: "Lembro que eu queria tanto acertar! Foi só um doce, mas significava que eu queria te fazer feliz de todas as formas. 🎁💕" 
-            },
-            { 
-                date: "13/02/2018", 
-                title: "Ida a Gramado de moto", 
-                message: "Gramado sempre foi especial, mas contigo ao meu lado ficou ainda mais mágico. Aquela viagem marcou nosso coração pra sempre. 🏔️❄️" 
-            },
-            { 
-                date: "22/05/2018", 
-                title: "Dia que peguei as alianças na joalheria", 
-                message: "Meu coração estava acelerado! Eu sabia que em poucos dias ia te pedir em casamento. A ansiedade boa de quem está prestes a realizar um sonho. 💍✨" 
-            },
-            { 
-                date: "26/05/2018", 
-                title: "Pedido de casamento com a Fiat Toro de brinquedo", 
-                message: "O carrinho vermelho bordô entrando com as alianças... Você ficou sem palavras, eu tremia de emoção. Foi o dia mais feliz da minha vida! 🚗💍❤️" 
-            },
-            { 
-                date: "20/04/2019", 
-                title: "Viagem mais longa de moto: Barra do Ribeiro", 
-                message: "Nossa aventura mais longa até então! Provamos que juntas a gente consegue ir longe... literalmente. E que parceria incrível! 🏍️🛣️" 
-            },
-            { 
-                date: "16/07/2019", 
-                title: "Cover Adele", 
-                message: "Que show incrível! A gente curtindo aquela voz maravilhosa juntas, aproveitando cada segundo. Esses momentos contigo são sempre especiais. 🎤⭐" 
-            },
-            { 
-                date: "16/05/2021", 
-                title: "Primeira vez que andou de bicicleta comigo", 
-                message: "Ver você pedalando ao meu lado foi tão especial! Mais uma aventura pra nossa lista, mais uma lembrança guardada com carinho. 🚴‍♀️💚" 
-            },
-            { 
-                date: "03/10/2021", 
-                title: "Fotos em comemoração aos seus 40 anos", 
-                message: "Você estava radiante! Registramos um momento lindo da sua vida, e eu tive o privilégio de estar lá, celebrando você. 📸✨" 
-            },
-            { 
-                date: "09/10/2021", 
-                title: "Dia em que eu congelei e quase parei o carro com medo do bafômetro", 
-                message: "A gente ri até hoje dessa! 😂 Você me acalmando, eu apavorada... Esses momentos bobos são os que a gente nunca esquece. 🚗😅" 
-            },
-            { 
-                date: "12/12/2021", 
-                title: "Me socorreu de carro na volta de bike de Roca Sales", 
-                message: "Você sempre me salvando! Minha heroína de carro que aparece quando eu mais preciso. Obrigada por sempre estar lá. 🦸‍♀️❤️" 
-            },
-            { 
-                date: "03/02/2022", 
-                title: "Primeira viagem para Praia SC", 
-                message: "O mar, você e eu. Praia, sol, risadas e aquela sensação de liberdade de estar com quem a gente ama. Inesquecível! 🌊☀️" 
-            },
-            { 
-                date: "17/02/2022", 
-                title: "Nascem os bebês da Frederica", 
-                message: "Que dia emocionante! A Frederica virando mãe e a gente acompanhando tudo de pertinho. A vida se multiplicando em amor. 🐱👶" 
-            },
-            { 
-                date: "10/02/2022", 
-                title: "Primeira ida pra Chapecó", 
-                message: "Uma viagem nova, um destino novo, mas a certeza de sempre: contigo qualquer lugar vira casa. 🗺️💕" 
-            },
-            { 
-                date: "05/03/2023", 
-                title: "Passeio no V13", 
-                message: "Mais uma aventura sobre rodas! A gente nunca cansa de explorar o mundo juntas, não é mesmo? 🏍️🌄" 
-            },
-            { 
-                date: "03/02/2024", 
-                title: "Passeio no camping em Arvorezinha", 
-                message: "Natureza, sossego e você. A combinação perfeita pra recarregar as energias e criar mais memórias incríveis. ⛺🌲" 
-            },
-            { 
-                date: "01/03/2024", 
-                title: "Férias na Serra", 
-                message: "Nossas férias mais recentes! A serra, o friozinho, e a gente curtindo cada segundo juntinhas. Já tô com saudade! 🏔️❤️" 
-            }
-        ];
-
-        // Memory Game Data
-        const memoryCards = ['🐱', '🐈', '🐾', '🐱‍👤', '🐶', '👦', '❤️', '🎁'];
-        let memoryPairs = [...memoryCards, ...memoryCards];
-        let flippedCards = [];
-        let matchedPairs = 0;
-
-        // Game indices
-        let currentQuizQuestion = 0;
-        let currentAdivinheQuestion = 0;
-        let currentVFQuestion = 0;
-        let currentFraseQuestion = 0;
-        let revealedTimeline = 0;
-
-        // Initialize
-        function createFloatingHearts() {
-            const container = document.getElementById('heartsBg');
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart-float';
-                heart.textContent = '❤️';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDelay = Math.random() * 15 + 's';
-                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-                container.appendChild(heart);
-            }
-        }
-
-        function showGame(gameId) {
-            const btn = document.querySelector(`[data-game="${gameId}"]`);
-            if (btn && btn.classList.contains('locked')) return;
-
-            document.querySelectorAll('.game-card').forEach(card => {
-                card.classList.remove('active');
-            });
-            document.getElementById(gameId).classList.add('active');
-
-            if (gameId === 'quiz' && currentQuizQuestion === 0) {
-                loadQuizQuestion();
-            } else if (gameId === 'adivinhe' && currentAdivinheQuestion === 0) {
-                loadAdivinheQuestion();
-            } else if (gameId === 'verdadeirofalso' && currentVFQuestion === 0) {
-                loadVerdadeiroFalsoQuestion();
-            } else if (gameId === 'frases' && currentFraseQuestion === 0) {
-                loadFraseQuestion();
-            } else if (gameId === 'timeline') {
-                loadTimeline();
-            } else if (gameId === 'memoria' && matchedPairs === 0) {
-                initMemoryGame();
-            } else if (gameId === 'revelacao') {
-                showConfetti();
-            }
-        }
-
-        // Quiz Functions
-        function loadQuizQuestion() {
-            const container = document.getElementById('quizContent');
-            const q = quizQuestions[currentQuizQuestion];
-            
-            container.innerHTML = `
-                <div class="question-container">
-                    <div class="question-text">${q.question}</div>
-                    <div class="options">
-                        ${q.options.map((opt, i) => `
-                            <button class="option-btn" onclick="checkQuizAnswer(${i})">${opt}</button>
-                        `).join('')}
-                    </div>
-                    <div class="feedback" id="quizFeedback"></div>
-                    <button class="next-btn" id="quizNext" onclick="nextQuizQuestion()">Próxima →</button>
-                </div>
-            `;
-        }
-
-        function checkQuizAnswer(selected) {
-            const q = quizQuestions[currentQuizQuestion];
-            const options = document.querySelectorAll('#quiz .option-btn');
-            const feedback = document.getElementById('quizFeedback');
-            
-            options.forEach((btn, i) => {
-                btn.disabled = true;
-                if (i === q.correct) {
-                    btn.classList.add('correct');
-                } else if (i === selected && selected !== q.correct) {
-                    btn.classList.add('incorrect');
-                }
-            });
-
-            if (selected === q.correct) {
-                feedback.textContent = q.correctMsg;
-                feedback.className = 'feedback success show';
-                document.getElementById('quizNext').classList.add('show');
-                quizErrors = 0; // Reset errors on correct answer
-            } else {
-                quizErrors++;
-                
-                if (quizErrors >= 3 && q.hint) {
-                    feedback.innerHTML = `
-                        <div style="margin-bottom: 12px; color: var(--error);">${q.errorMsg}</div>
-                        <div style="padding: 16px; background: rgba(168, 85, 247, 0.15); border-radius: 12px; border: 1px dashed var(--accent-tertiary); margin-top: 12px;">
-                            <div style="font-weight: 600; color: var(--accent-tertiary); margin-bottom: 8px;">💡 Tá difícil, né? Aqui vai uma dica:</div>
-                            <div style="color: var(--text-secondary); font-size: 1rem;">${q.hint}</div>
-                        </div>
-                    `;
-                } else {
-                    feedback.textContent = q.errorMsg;
-                }
-                
-                feedback.className = 'feedback error show';
-                
-                // Re-enable buttons for retry
-                setTimeout(() => {
-                    options.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('incorrect');
-                    });
-                    if (quizErrors < 3) {
-                        feedback.classList.remove('show');
-                    }
-                }, 2000);
-            }
-        }
-
-        function nextQuizQuestion() {
-            quizErrors = 0; // Reset errors for next question
-            currentQuizQuestion++;
-            if (currentQuizQuestion < quizQuestions.length) {
-                loadQuizQuestion();
-            } else {
-                document.getElementById('quizComplete').classList.add('show');
-                setTimeout(() => completeGame('quiz'), 1500);
-            }
-        }
-
-        // Adivinhe Functions
-        function loadAdivinheQuestion() {
-            const container = document.getElementById('adivinheContent');
-            const q = adivinheQuestions[currentAdivinheQuestion];
-            
-            container.innerHTML = `
-                <div class="question-container">
-                    <div class="question-text">${q.question}</div>
-                    <div class="input-container">
-                        <input type="text" class="text-input" id="adivinheInput" placeholder="Digite sua resposta...">
-                    </div>
-                    <button class="submit-btn" onclick="checkAdivinheAnswer()">Responder</button>
-                    <div class="feedback" id="adivinheFeedback"></div>
-                    <button class="next-btn" id="adivinheNext" onclick="nextAdivinheQuestion()">Próxima →</button>
-                </div>
-            `;
-        }
-
-        function checkAdivinheAnswer() {
-            const q = adivinheQuestions[currentAdivinheQuestion];
-            const input = document.getElementById('adivinheInput');
-            const answer = input.value.toLowerCase().trim();
-            const feedback = document.getElementById('adivinheFeedback');
-            
-            if (answer === q.answer.toLowerCase()) {
-                input.disabled = true;
-                document.querySelector('#adivinhe .submit-btn').disabled = true;
-                feedback.textContent = q.message;
-                feedback.className = 'feedback success show';
-                document.getElementById('adivinheNext').classList.add('show');
-                adivinheErrors = 0; // Reset errors
-            } else {
-                adivinheErrors++;
-                
-                if (adivinheErrors >= 3 && q.hint) {
-                    feedback.innerHTML = `
-                        <div style="margin-bottom: 12px; color: var(--error);">Hmm, não é bem isso... Tenta de novo!</div>
-                        <div style="padding: 16px; background: rgba(168, 85, 247, 0.15); border-radius: 12px; border: 1px dashed var(--accent-tertiary); margin-top: 12px;">
-                            <div style="font-weight: 600; color: var(--accent-tertiary); margin-bottom: 8px;">💡 Deixa eu te ajudar com uma dica:</div>
-                            <div style="color: var(--text-secondary); font-size: 1rem;">${q.hint}</div>
-                        </div>
-                    `;
-                    feedback.className = 'feedback error show';
-                    // Don't hide the hint
-                } else {
-                    feedback.textContent = "Hmm, não é bem isso... Tenta de novo!";
-                    feedback.className = 'feedback error show';
-                    setTimeout(() => {
-                        feedback.classList.remove('show');
-                    }, 2000);
-                }
-            }
-        }
-
-        function nextAdivinheQuestion() {
-            adivinheErrors = 0; // Reset errors
-            currentAdivinheQuestion++;
-            if (currentAdivinheQuestion < adivinheQuestions.length) {
-                loadAdivinheQuestion();
-            } else {
-                document.getElementById('adivinheComplete').classList.add('show');
-                setTimeout(() => completeGame('adivinhe'), 1500);
-            }
-        }
-
-        // Verdadeiro ou Falso Functions
-        function loadVerdadeiroFalsoQuestion() {
-            const container = document.getElementById('verdadeiroFalsoContent');
-            const q = verdadeiroFalsoQuestions[currentVFQuestion];
-            
-            container.innerHTML = `
-                <div class="question-container">
-                    <div class="question-text">${q.question}</div>
-                    <div class="options">
-                        <button class="option-btn" onclick="checkVFAnswer(true)">Verdadeiro ✓</button>
-                        <button class="option-btn" onclick="checkVFAnswer(false)">Falso ✗</button>
-                    </div>
-                    <div class="feedback" id="vfFeedback"></div>
-                    <button class="next-btn" id="vfNext" onclick="nextVFQuestion()">Próxima →</button>
-                </div>
-            `;
-        }
-
-        function checkVFAnswer(selected) {
-            const q = verdadeiroFalsoQuestions[currentVFQuestion];
-            const options = document.querySelectorAll('#verdadeirofalso .option-btn');
-            const feedback = document.getElementById('vfFeedback');
-            
-            options.forEach((btn, i) => {
-                btn.disabled = true;
-                const isTrue = i === 0;
-                if (isTrue === q.correct) {
-                    btn.classList.add('correct');
-                } else if (isTrue === selected && selected !== q.correct) {
-                    btn.classList.add('incorrect');
-                }
-            });
-
-            if (selected === q.correct) {
-                feedback.textContent = q.correctMsg;
-                feedback.className = 'feedback success show';
-                document.getElementById('vfNext').classList.add('show');
-                vfErrors = 0; // Reset errors
-            } else {
-                vfErrors++;
-                
-                if (vfErrors >= 3 && q.hint) {
-                    feedback.innerHTML = `
-                        <div style="margin-bottom: 12px; color: var(--error);">${q.errorMsg}</div>
-                        <div style="padding: 16px; background: rgba(168, 85, 247, 0.15); border-radius: 12px; border: 1px dashed var(--accent-tertiary); margin-top: 12px;">
-                            <div style="font-weight: 600; color: var(--accent-tertiary); margin-bottom: 8px;">💡 Sério mesmo? Vou te ajudar:</div>
-                            <div style="color: var(--text-secondary); font-size: 1rem;">${q.hint}</div>
-                        </div>
-                    `;
-                } else {
-                    feedback.textContent = q.errorMsg;
-                }
-                
-                feedback.className = 'feedback error show';
-                
-                // Re-enable buttons for retry
-                setTimeout(() => {
-                    options.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('incorrect');
-                    });
-                    if (vfErrors < 3) {
-                        feedback.classList.remove('show');
-                    }
-                }, 2000);
-            }
-        }
-
-        function nextVFQuestion() {
-            vfErrors = 0; // Reset errors
-            currentVFQuestion++;
-            if (currentVFQuestion < verdadeiroFalsoQuestions.length) {
-                loadVerdadeiroFalsoQuestion();
-            } else {
-                document.getElementById('verdadeiroFalsoComplete').classList.add('show');
-                setTimeout(() => completeGame('verdadeirofalso'), 1500);
-            }
-        }
-
-        // Complete as Frases Functions
-        function loadFraseQuestion() {
-            const container = document.getElementById('frasesContent');
-            const f = frasesData[currentFraseQuestion];
-            
-            container.innerHTML = `
-                <div class="question-container">
-                    <div class="phrase-container">
-                        <div class="phrase-item">
-                            <div class="phrase-text">"${f.frase}"</div>
-                        </div>
-                    </div>
-                    <div class="options">
-                        ${f.alternativas.map((alt, i) => `
-                            <button class="option-btn" onclick="checkFraseAnswer('${alt}')">${alt}</button>
-                        `).join('')}
-                    </div>
-                    <div class="feedback" id="fraseFeedback"></div>
-                    <button class="next-btn" id="fraseNext" onclick="nextFraseQuestion()">Próxima →</button>
-                </div>
-            `;
-        }
-
-        function checkFraseAnswer(selected) {
-            const f = frasesData[currentFraseQuestion];
-            const options = document.querySelectorAll('#frases .option-btn');
-            const feedback = document.getElementById('fraseFeedback');
-            
-            options.forEach(btn => {
-                btn.disabled = true;
-                if (btn.textContent === f.resposta) {
-                    btn.classList.add('correct');
-                } else if (btn.textContent === selected && selected !== f.resposta) {
-                    btn.classList.add('incorrect');
-                }
-            });
-
-            if (selected === f.resposta) {
-                feedback.textContent = "Perfeito! Você me conhece mesmo! 😄";
-                feedback.className = 'feedback success show';
-            } else {
-                feedback.textContent = "Ops! Não é essa que eu sempre digo!";
-                feedback.className = 'feedback error show';
-            }
-            
-            document.getElementById('fraseNext').classList.add('show');
-        }
-
-        function nextFraseQuestion() {
-            currentFraseQuestion++;
-            if (currentFraseQuestion < frasesData.length) {
-                loadFraseQuestion();
-            } else {
-                document.getElementById('frasesComplete').classList.add('show');
-                setTimeout(() => completeGame('frases'), 1500);
-            }
-        }
-
-        // Timeline Functions
-        function loadTimeline() {
-            const container = document.getElementById('timelineContent');
-            
-            let html = '<div class="timeline-line"></div>';
-            timelineEvents.forEach((event, index) => {
-                html += `
-                    <div class="timeline-item">
-                        <div class="timeline-dot" onclick="revealTimelineEvent(${index})"></div>
-                        <div class="timeline-content" onclick="revealTimelineEvent(${index})" data-index="${index}">
-                            <div class="timeline-date">${event.date}</div>
-                            <div class="timeline-title">${event.title}</div>
-                            <div class="timeline-message">${event.message}</div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function revealTimelineEvent(index) {
-            const content = document.querySelector(`.timeline-content[data-index="${index}"]`);
-            const dot = content.previousElementSibling;
-            
-            if (!content.classList.contains('revealed')) {
-                content.classList.add('revealed');
-                dot.classList.add('revealed');
-                revealedTimeline++;
-                
-                if (revealedTimeline === timelineEvents.length) {
-                    setTimeout(() => {
-                        document.getElementById('timelineComplete').classList.add('show');
-                        setTimeout(() => completeGame('timeline'), 2000);
-                    }, 500);
-                }
-            }
-        }
-
-        // Memory Game Functions
-        function initMemoryGame() {
-            memoryPairs = [...memoryCards, ...memoryCards].sort(() => Math.random() - 0.5);
-            const grid = document.getElementById('memoryGrid');
-            grid.innerHTML = '';
-            
-            memoryPairs.forEach((symbol, index) => {
-                const card = document.createElement('div');
-                card.className = 'memory-card';
-                card.innerHTML = `
-                    <div class="card-back"></div>
-                    <div class="card-front">${symbol}</div>
-                `;
-                card.dataset.index = index;
-                card.dataset.symbol = symbol;
-                card.addEventListener('click', flipCard);
-                grid.appendChild(card);
-            });
-        }
-
-        function flipCard(e) {
-            const card = e.currentTarget;
-            
-            if (card.classList.contains('flipped') || 
-                card.classList.contains('matched') || 
-                flippedCards.length === 2) {
-                return;
-            }
-
-            card.classList.add('flipped');
-            flippedCards.push(card);
-
-            if (flippedCards.length === 2) {
-                setTimeout(checkMatch, 800);
-            }
-        }
-
-        function checkMatch() {
-            const [card1, card2] = flippedCards;
-            
-            if (card1.dataset.symbol === card2.dataset.symbol) {
-                card1.classList.add('matched');
-                card2.classList.add('matched');
-                matchedPairs++;
-
-                if (matchedPairs === memoryCards.length) {
-                    setTimeout(() => {
-                        document.getElementById('memoryComplete').classList.add('show');
-                        setTimeout(() => completeGame('memoria'), 2000);
-                    }, 500);
-                }
-            } else {
-                card1.classList.remove('flipped');
-                card2.classList.remove('flipped');
-            }
-
-            flippedCards = [];
-        }
-
-        // Game Completion
-        function completeGame(gameId) {
-            gameState[gameId] = true;
-            const btn = document.querySelector(`[data-game="${gameId}"]`);
-            if (btn) btn.classList.add('completed');
-            
-            updateProgress();
-
-            const completed = Object.values(gameState).filter(Boolean).length;
-            
-            // Show next challenge button
-            setTimeout(() => {
-                const nextGame = getNextGame(gameId);
-                if (nextGame) {
-                    const currentCard = document.getElementById(gameId);
-                    const completionDiv = currentCard.querySelector('.completion-msg');
-                    
-                    if (completionDiv && !completionDiv.querySelector('.next-challenge-btn')) {
-                        const nextBtn = document.createElement('button');
-                        nextBtn.className = 'next-challenge-btn';
-                        nextBtn.textContent = `Próximo Desafio: ${getGameName(nextGame)} →`;
-                        nextBtn.onclick = () => showGame(nextGame);
-                        completionDiv.appendChild(nextBtn);
-                    }
-                }
-            }, 500);
-
-            if (completed === 6) {
-                const revelationBtn = document.querySelector('[data-game="revelacao"]');
-                if (revelationBtn) {
-                    revelationBtn.classList.remove('locked');
-                    setTimeout(() => {
-                        alert('🎉 Parabéns! Você completou todos os jogos!\n\nAgora você pode ver a revelação especial ❤️');
-                    }, 1000);
-                }
-            }
-        }
-
-        function getNextGame(currentGame) {
-            const gameOrder = ['quiz', 'adivinhe', 'verdadeirofalso', 'frases', 'timeline', 'memoria'];
-            const currentIndex = gameOrder.indexOf(currentGame);
-            
-            for (let i = currentIndex + 1; i < gameOrder.length; i++) {
-                if (!gameState[gameOrder[i]]) {
-                    return gameOrder[i];
-                }
-            }
-            
-            const allCompleted = Object.values(gameState).filter(Boolean).length === 6;
-            return allCompleted ? 'revelacao' : null;
-        }
-
-        function getGameName(gameId) {
-            const names = {
-                'quiz': 'Quiz do Relacionamento',
-                'adivinhe': 'Adivinhe o Momento',
-                'verdadeirofalso': 'Verdadeiro ou Falso',
-                'frases': 'Complete as Frases',
-                'timeline': 'Nossa História',
-                'memoria': 'Jogo da Memória',
-                'revelacao': 'Revelação Final'
-            };
-            return names[gameId] || gameId;
-        }
-
-        function updateProgress() {
-            const completed = Object.values(gameState).filter(Boolean).length;
-            const percentage = Math.round((completed / 6) * 100);
-            
-            document.getElementById('progressBar').style.width = percentage + '%';
-            document.getElementById('progressPercent').textContent = percentage + '%';
-            
-            const emojiEl = document.getElementById('progressEmoji');
-            if (percentage === 0) {
-                emojiEl.textContent = '🎮';
-            } else if (percentage <= 30) {
-                emojiEl.textContent = '🌱';
-            } else if (percentage <= 50) {
-                emojiEl.textContent = '🌸';
-            } else if (percentage <= 75) {
-                emojiEl.textContent = '⭐';
-            } else if (percentage < 100) {
-                emojiEl.textContent = '🔥';
-            } else {
-                emojiEl.textContent = '💖';
-            }
-        }
-
-        // Confetti
-        function showConfetti() {
-            const confettiContainer = document.createElement('div');
-            confettiContainer.className = 'confetti';
-            document.body.appendChild(confettiContainer);
-
-            const colors = ['#ff6b9d', '#c94277', '#a855f7', '#10b981'];
-
-            for (let i = 0; i < 120; i++) {
-
-        <!-- Mensagens -->
         <div class="message-compose">
             <h3 style="font-family: 'Syne', sans-serif; color: var(--accent-primary);">💬 Mensagem para Betina</h3>
             <textarea id="userMsg" class="message-textarea" placeholder="Escreva aqui..."></textarea>
@@ -2151,172 +1190,97 @@
     </div>
 
     <script>
-    // Aguardar Firebase carregar
     (function() {
-        // Verificar se Firebase carregou
-        var checkFirebase = setInterval(function() {
+        var checkFB = setInterval(function() {
             if (typeof firebase !== 'undefined') {
-                clearInterval(checkFirebase);
-                initFirebase();
+                clearInterval(checkFB);
+                firebase.initializeApp({
+                    apiKey: "AIzaSyB5JtCJ1Ydk4UFaSoS5_A5ADHcp2PWBSTo",
+                    authDomain: "jogo-presente.firebaseapp.com",
+                    projectId: "jogo-presente",
+                    storageBucket: "jogo-presente.firebasestorage.app",
+                    messagingSenderId: "334359804298",
+                    appId: "1:334359804298:web:b4d6a34794c9c1f1fef073"
+                });
+                var auth = firebase.auth();
+                var db = firebase.firestore();
+                var ADMIN = "2Ce7XQLG6rR3rT7W6mG6zp0uNCF3";
+                var user = null, isAdmin = false, testMode = false;
+                
+                auth.onAuthStateChanged(function(u) {
+                    if (u) {
+                        user = u;
+                        isAdmin = (u.uid === ADMIN);
+                        document.getElementById('loadingScreen').classList.add('hidden');
+                        if (isAdmin && !testMode) {
+                            document.getElementById('adminPanel').classList.remove('hidden');
+                        } else {
+                            document.getElementById('mainApp').classList.remove('hidden');
+                        }
+                        db.collection('logs').add({ userId: u.uid, action: 'login', timestamp: firebase.firestore.FieldValue.serverTimestamp() });
+                    } else {
+                        document.getElementById('loadingScreen').classList.add('hidden');
+                        document.getElementById('loginScreen').classList.remove('hidden');
+                    }
+                });
+                
+                var signup = false;
+                document.getElementById('loginBtn').onclick = function() {
+                    var e = document.getElementById('emailInput').value;
+                    var p = document.getElementById('passwordInput').value;
+                    var err = document.getElementById('errorMsg');
+                    (signup ? auth.createUserWithEmailAndPassword(e, p) : auth.signInWithEmailAndPassword(e, p))
+                        .catch(function(error) { err.textContent = error.message; err.classList.add('show'); });
+                };
+                
+                document.getElementById('googleBtn').onclick = function() {
+                    auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+                        .catch(function(e) { document.getElementById('errorMsg').textContent = e.message; document.getElementById('errorMsg').classList.add('show'); });
+                };
+                
+                document.getElementById('toggleMode').onclick = function() {
+                    signup = !signup;
+                    document.getElementById('loginBtn').textContent = signup ? 'Criar Conta' : 'Entrar';
+                    document.getElementById('toggleText').textContent = signup ? 'Já tem conta?' : 'Não tem conta?';
+                    this.textContent = signup ? 'Entrar' : 'Criar conta';
+                };
+                
+                var logout = document.getElementById('logoutBtnAdmin');
+                if (logout) logout.onclick = function() { auth.signOut(); location.reload(); };
+                
+                var toggle = document.getElementById('toggleGameBtn');
+                if (toggle) {
+                    toggle.onclick = function() {
+                        testMode = !testMode;
+                        document.getElementById(testMode ? 'adminPanel' : 'mainApp').classList.add('hidden');
+                        document.getElementById(testMode ? 'mainApp' : 'adminPanel').classList.remove('hidden');
+                        this.textContent = testMode ? '🎛️ Modo Admin' : '🎮 Modo Jogador';
+                    };
+                }
+                
+                var sendBtn = document.getElementById('sendMsgBtn');
+                if (sendBtn) {
+                    sendBtn.onclick = function() {
+                        var msg = document.getElementById('userMsg').value.trim();
+                        var fb = document.getElementById('msgFeedback');
+                        if (!msg) { fb.textContent = '⚠️ Escreva uma mensagem!'; fb.style.color = 'var(--error)'; fb.style.display = 'block'; return; }
+                        if (!user) { fb.textContent = '⚠️ Faça login!'; fb.style.color = 'var(--error)'; fb.style.display = 'block'; return; }
+                        db.collection('mensagens').add({
+                            de: user.email, deUID: user.uid, paraUID: ADMIN, mensagem: msg,
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp(), isTest: testMode
+                        }).then(function() {
+                            document.getElementById('userMsg').value = '';
+                            fb.textContent = '✅ Enviada! 💕';
+                            fb.style.color = 'var(--success)';
+                            fb.style.display = 'block';
+                            setTimeout(function() { fb.style.display = 'none'; }, 3000);
+                        }).catch(function(e) { fb.textContent = '❌ ' + e.message; fb.style.color = 'var(--error)'; fb.style.display = 'block'; });
+                    };
+                }
             }
         }, 100);
-        
-        function initFirebase() {
-            // Config
-            var config = {
-                apiKey: "AIzaSyB5JtCJ1Ydk4UFaSoS5_A5ADHcp2PWBSTo",
-                authDomain: "jogo-presente.firebaseapp.com",
-                projectId: "jogo-presente",
-                storageBucket: "jogo-presente.firebasestorage.app",
-                messagingSenderId: "334359804298",
-                appId: "1:334359804298:web:b4d6a34794c9c1f1fef073"
-            };
-            
-            firebase.initializeApp(config);
-            var auth = firebase.auth();
-            var db = firebase.firestore();
-            var ADMIN_UID = "2Ce7XQLG6rR3rT7W6mG6zp0uNCF3";
-            var currentUser = null;
-            var isAdmin = false;
-            var isTestMode = false;
-            
-            // Auth state
-            auth.onAuthStateChanged(function(user) {
-                if (user) {
-                    currentUser = user;
-                    isAdmin = (user.uid === ADMIN_UID);
-                    document.getElementById('loadingScreen').classList.add('hidden');
-                    
-                    if (isAdmin && !isTestMode) {
-                        document.getElementById('adminPanel').classList.remove('hidden');
-                        document.getElementById('adminContent').innerHTML = '<p style="padding: 20px;">Bem-vinda, Admin! Use o botão "Modo Jogador" para testar.</p>';
-                    } else {
-                        document.getElementById('mainApp').classList.remove('hidden');
-                    }
-                    
-                    // Log
-                    db.collection('logs').add({
-                        userId: user.uid,
-                        action: 'login',
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                } else {
-                    document.getElementById('loadingScreen').classList.add('hidden');
-                    document.getElementById('loginScreen').classList.remove('hidden');
-                }
-            });
-            
-            // Login
-            var isSignup = false;
-            document.getElementById('loginBtn').onclick = function() {
-                var email = document.getElementById('emailInput').value;
-                var pwd = document.getElementById('passwordInput').value;
-                var errorEl = document.getElementById('errorMsg');
-                
-                if (isSignup) {
-                    auth.createUserWithEmailAndPassword(email, pwd).catch(function(e) {
-                        errorEl.textContent = e.message;
-                        errorEl.classList.add('show');
-                    });
-                } else {
-                    auth.signInWithEmailAndPassword(email, pwd).catch(function(e) {
-                        errorEl.textContent = e.message;
-                        errorEl.classList.add('show');
-                    });
-                }
-            };
-            
-            // Google
-            document.getElementById('googleBtn').onclick = function() {
-                var provider = new firebase.auth.GoogleAuthProvider();
-                auth.signInWithPopup(provider).catch(function(e) {
-                    document.getElementById('errorMsg').textContent = e.message;
-                    document.getElementById('errorMsg').classList.add('show');
-                });
-            };
-            
-            // Toggle signup/login
-            document.getElementById('toggleMode').onclick = function() {
-                isSignup = !isSignup;
-                document.getElementById('loginBtn').textContent = isSignup ? 'Criar Conta' : 'Entrar';
-                document.getElementById('toggleText').textContent = isSignup ? 'Já tem conta?' : 'Não tem conta?';
-                document.getElementById('toggleMode').textContent = isSignup ? 'Entrar' : 'Criar conta';
-            };
-            
-            // Logout
-            var logoutBtn = document.getElementById('logoutBtnAdmin');
-            if (logoutBtn) {
-                logoutBtn.onclick = function() {
-                    auth.signOut();
-                    location.reload();
-                };
-            }
-            
-            // Toggle game mode
-            var toggleGameBtn = document.getElementById('toggleGameBtn');
-            if (toggleGameBtn) {
-                toggleGameBtn.onclick = function() {
-                    isTestMode = !isTestMode;
-                    if (isTestMode) {
-                        document.getElementById('adminPanel').classList.add('hidden');
-                        document.getElementById('mainApp').classList.remove('hidden');
-                        this.textContent = '🎛️ Modo Admin';
-                    } else {
-                        document.getElementById('mainApp').classList.add('hidden');
-                        document.getElementById('adminPanel').classList.remove('hidden');
-                        this.textContent = '🎮 Modo Jogador';
-                    }
-                };
-            }
-            
-            // Send message
-            var sendBtn = document.getElementById('sendMsgBtn');
-            if (sendBtn) {
-                sendBtn.onclick = function() {
-                    var msg = document.getElementById('userMsg').value;
-                    var feedback = document.getElementById('msgFeedback');
-                    
-                    if (!msg.trim()) {
-                        feedback.textContent = '⚠️ Escreva uma mensagem!';
-                        feedback.style.color = 'var(--error)';
-                        feedback.style.display = 'block';
-                        return;
-                    }
-                    
-                    if (!currentUser) {
-                        feedback.textContent = '⚠️ Faça login primeiro!';
-                        feedback.style.color = 'var(--error)';
-                        feedback.style.display = 'block';
-                        return;
-                    }
-                    
-                    db.collection('mensagens').add({
-                        de: currentUser.email,
-                        deUID: currentUser.uid,
-                        paraUID: ADMIN_UID,
-                        mensagem: msg,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                        isTest: isTestMode
-                    }).then(function() {
-                        document.getElementById('userMsg').value = '';
-                        feedback.textContent = '✅ Mensagem enviada! 💕';
-                        feedback.style.color = 'var(--success)';
-                        feedback.style.display = 'block';
-                        setTimeout(function() {
-                            feedback.style.display = 'none';
-                        }, 3000);
-                    }).catch(function(e) {
-                        feedback.textContent = '❌ Erro: ' + e.message;
-                        feedback.style.color = 'var(--error)';
-                        feedback.style.display = 'block';
-                    });
-                };
-            }
-        }
     })();
     </script>
-    
-    <!-- Game JavaScript Original -->
     <script>
         // Game State
         const gameState = {
