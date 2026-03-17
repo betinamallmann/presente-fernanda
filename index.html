@@ -1207,6 +1207,18 @@
                 var ADMIN = "2Ce7XQLG6rR3rT7W6mG6zp0uNCF3";
                 var user = null, isAdmin = false, testMode = false;
                 
+                // Handle redirect result from Google Sign-In
+                auth.getRedirectResult().then(function(result) {
+                    if (result.user) {
+                        // User signed in successfully
+                    }
+                }).catch(function(error) {
+                    if (error.code !== 'auth/popup-closed-by-user') {
+                        document.getElementById('errorMsg').textContent = error.message;
+                        document.getElementById('errorMsg').classList.add('show');
+                    }
+                });
+                
                 auth.onAuthStateChanged(function(u) {
                     if (u) {
                         user = u;
@@ -1234,8 +1246,7 @@
                 };
                 
                 document.getElementById('googleBtn').onclick = function() {
-                    auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-                        .catch(function(e) { document.getElementById('errorMsg').textContent = e.message; document.getElementById('errorMsg').classList.add('show'); });
+                    auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
                 };
                 
                 document.getElementById('toggleMode').onclick = function() {
