@@ -1207,20 +1207,25 @@
                 var ADMIN = "2Ce7XQLG6rR3rT7W6mG6zp0uNCF3";
                 var user = null, isAdmin = false, testMode = false;
                 
-                // Handle redirect result from Google Sign-In
-                console.log('Checking for redirect result...');
-                auth.getRedirectResult().then(function(result) {
-                    console.log('Redirect result:', result);
-                    if (result.user) {
-                        console.log('User from redirect:', result.user.email);
+                // Set persistence to LOCAL (survives browser refresh)
+                auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(function() {
+                    console.log('Persistence set to LOCAL');
+                    
+                    // First check for redirect result
+                    return auth.getRedirectResult();
+                }).then(function(result) {
+                    console.log('Redirect result received:', result);
+                    if (result && result.user) {
+                        console.log('✅ User signed in via redirect:', result.user.email);
                     } else {
-                        console.log('No user from redirect');
+                        console.log('No redirect result (normal page load)');
                     }
                 }).catch(function(error) {
-                    console.error('Redirect error:', error.code, error.message);
-                    if (error.code !== 'auth/popup-closed-by-user') {
-                        document.getElementById('errorMsg').textContent = error.message;
-                        document.getElementById('errorMsg').classList.add('show');
+                    console.error('❌ Error in auth flow:', error.code, error.message);
+                    var errorMsg = document.getElementById('errorMsg');
+                    if (errorMsg) {
+                        errorMsg.textContent = 'Erro: ' + error.message;
+                        errorMsg.classList.add('show');
                     }
                 });
                 
@@ -1257,9 +1262,16 @@
                 };
                 
                 document.getElementById('googleBtn').onclick = function() {
-                    console.log('Google Sign-In button clicked');
-                    console.log('Starting redirect...');
-                    auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+                    console.log('🔵 Google Sign-In button clicked');
+                    var provider = new firebase.auth.GoogleAuthProvider();
+                    provider.addScope('email');
+                    provider.addScope('profile');
+                    console.log('🔵 Provider configured, starting redirect...');
+                    auth.signInWithRedirect(provider).catch(function(error) {
+                        console.error('❌ Redirect failed:', error);
+                        document.getElementById('errorMsg').textContent = 'Erro ao redirecionar: ' + error.message;
+                        document.getElementById('errorMsg').classList.add('show');
+                    });
                 };
                 
                 document.getElementById('toggleMode').onclick = function() {
