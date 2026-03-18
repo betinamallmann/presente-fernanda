@@ -1220,13 +1220,19 @@
                 });
                 
                 auth.onAuthStateChanged(function(u) {
+                    console.log('Auth state changed:', u ? 'User logged in' : 'No user');
                     if (u) {
+                        console.log('User UID:', u.uid);
+                        console.log('Is Admin:', u.uid === ADMIN);
                         user = u;
                         isAdmin = (u.uid === ADMIN);
                         document.getElementById('loadingScreen').classList.add('hidden');
+                        document.getElementById('loginScreen').classList.add('hidden');
                         if (isAdmin && !testMode) {
+                            console.log('Showing admin panel');
                             document.getElementById('adminPanel').classList.remove('hidden');
                         } else {
+                            console.log('Showing main app');
                             document.getElementById('mainApp').classList.remove('hidden');
                         }
                         db.collection('logs').add({ userId: u.uid, action: 'login', timestamp: firebase.firestore.FieldValue.serverTimestamp() });
