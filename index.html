@@ -1208,11 +1208,16 @@
                 var user = null, isAdmin = false, testMode = false;
                 
                 // Handle redirect result from Google Sign-In
+                console.log('Checking for redirect result...');
                 auth.getRedirectResult().then(function(result) {
+                    console.log('Redirect result:', result);
                     if (result.user) {
-                        // User signed in successfully
+                        console.log('User from redirect:', result.user.email);
+                    } else {
+                        console.log('No user from redirect');
                     }
                 }).catch(function(error) {
+                    console.error('Redirect error:', error.code, error.message);
                     if (error.code !== 'auth/popup-closed-by-user') {
                         document.getElementById('errorMsg').textContent = error.message;
                         document.getElementById('errorMsg').classList.add('show');
@@ -1252,6 +1257,8 @@
                 };
                 
                 document.getElementById('googleBtn').onclick = function() {
+                    console.log('Google Sign-In button clicked');
+                    console.log('Starting redirect...');
                     auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
                 };
                 
