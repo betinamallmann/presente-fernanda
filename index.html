@@ -1423,11 +1423,21 @@
                         document.getElementById('statMessages').textContent = snapshot.size;
                     });
                     
-                    // Get last activity
-                    db.collection('logs').orderBy('timestamp', 'desc').limit(1).get().then(function(snapshot) {
+                    // Get last activity - get all and sort manually
+                    db.collection('logs').get().then(function(snapshot) {
                         if (!snapshot.empty) {
-                            var log = snapshot.docs[0].data();
-                            var date = log.timestamp ? log.timestamp.toDate() : new Date();
+                            var logs = [];
+                            snapshot.forEach(function(doc) {
+                                logs.push(doc.data());
+                            });
+                            // Sort by timestamp descending
+                            logs.sort(function(a, b) {
+                                var dateA = a.timestamp ? a.timestamp.toDate() : new Date(0);
+                                var dateB = b.timestamp ? b.timestamp.toDate() : new Date(0);
+                                return dateB - dateA;
+                            });
+                            var lastLog = logs[0];
+                            var date = lastLog.timestamp ? lastLog.timestamp.toDate() : new Date();
                             var now = new Date();
                             var diff = Math.floor((now - date) / 1000 / 60);
                             if (diff < 1) document.getElementById('statLastActivity').textContent = 'Agora';
@@ -1440,7 +1450,6 @@
                 function loadAdminMessages() {
                     db.collection('mensagens')
                         .where('paraUID', '==', ADMIN)
-                        .orderBy('timestamp', 'desc')
                         .limit(50)
                         .onSnapshot(function(snapshot) {
                             var container = document.getElementById('messagesContainer');
@@ -1449,8 +1458,21 @@
                                 return;
                             }
                             container.innerHTML = '';
+                            // Convert to array and sort manually
+                            var messages = [];
                             snapshot.forEach(function(doc) {
                                 var msg = doc.data();
+                                msg.id = doc.id;
+                                messages.push(msg);
+                            });
+                            // Sort by timestamp descending
+                            messages.sort(function(a, b) {
+                                var dateA = a.timestamp ? a.timestamp.toDate() : new Date(0);
+                                var dateB = b.timestamp ? b.timestamp.toDate() : new Date(0);
+                                return dateB - dateA;
+                            });
+                            // Display messages
+                            messages.forEach(function(msg) {
                                 var date = msg.timestamp ? msg.timestamp.toDate() : new Date();
                                 var div = document.createElement('div');
                                 div.className = 'message-item';
@@ -1468,8 +1490,7 @@
                 
                 function loadAdminLogs() {
                     db.collection('logs')
-                        .orderBy('timestamp', 'desc')
-                        .limit(20)
+                        .limit(50)
                         .onSnapshot(function(snapshot) {
                             var container = document.getElementById('logsContainer');
                             if (snapshot.empty) {
@@ -1477,8 +1498,21 @@
                                 return;
                             }
                             container.innerHTML = '';
+                            // Convert to array and sort manually
+                            var logs = [];
                             snapshot.forEach(function(doc) {
                                 var log = doc.data();
+                                log.id = doc.id;
+                                logs.push(log);
+                            });
+                            // Sort by timestamp descending
+                            logs.sort(function(a, b) {
+                                var dateA = a.timestamp ? a.timestamp.toDate() : new Date(0);
+                                var dateB = b.timestamp ? b.timestamp.toDate() : new Date(0);
+                                return dateB - dateA;
+                            });
+                            // Display only first 20
+                            logs.slice(0, 20).forEach(function(log) {
                                 var date = log.timestamp ? log.timestamp.toDate() : new Date();
                                 var div = document.createElement('div');
                                 div.className = 'log-item';
@@ -1590,7 +1624,7 @@
                 var exportBtn = document.getElementById('exportMessagesBtn');
                 if (exportBtn) {
                     exportBtn.onclick = function() {
-                        db.collection('mensagens').where('paraUID', '==', ADMIN).orderBy('timestamp', 'desc').get().then(function(snapshot) {
+                        db.collection('mensagens').where('paraUID', '==', ADMIN).get().then(function(snapshot) {
                             var messages = [];
                             snapshot.forEach(function(doc) {
                                 var msg = doc.data();
@@ -1601,6 +1635,10 @@
                                     data: msg.timestamp ? msg.timestamp.toDate().toISOString() : new Date().toISOString(),
                                     teste: msg.isTest || false
                                 });
+                            });
+                            // Sort by date descending
+                            messages.sort(function(a, b) {
+                                return new Date(b.data) - new Date(a.data);
                             });
                             var blob = new Blob([JSON.stringify(messages, null, 2)], { type: 'application/json' });
                             var url = URL.createObjectURL(blob);
