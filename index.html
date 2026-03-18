@@ -1002,6 +1002,32 @@
         .error-message.show { display: block; }
         .message-compose { margin-top: 30px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
         .message-textarea { width: 100%; min-height: 120px; padding: 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: 12px; color: var(--text-primary); font-family: 'DM Sans', sans-serif; resize: vertical; margin-bottom: 16px; }
+        
+        /* Logout button styles */
+        header { position: relative; }
+        #logoutBtnUser { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid var(--border); 
+            color: var(--text-primary); 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+        }
+        #logoutBtnUser:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            #logoutBtnUser {
+                position: static !important;
+                margin: 20px auto 0 auto;
+                display: block;
+                width: 100%;
+                max-width: 200px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1054,6 +1080,7 @@
         <header>
             <h1>Uma Jornada Especial</h1>
             <p class="subtitle">Seis jogos, uma revelação <span class="secret-heart" id="secretHeart" onclick="heartClick()">❤️</span></p>
+            <button id="logoutBtnUser" class="btn-secondary" style="position: absolute; top: 20px; right: 20px; padding: 8px 16px; font-size: 0.9rem;">Sair</button>
         </header>
 
         <div class="progress-bar">
@@ -1244,6 +1271,17 @@
                 
                 var logout = document.getElementById('logoutBtnAdmin');
                 if (logout) logout.onclick = function() { auth.signOut(); location.reload(); };
+                
+                var logoutUser = document.getElementById('logoutBtnUser');
+                if (logoutUser) {
+                    logoutUser.onclick = function() {
+                        if (confirm('Tem certeza que deseja sair?')) {
+                            auth.signOut().then(function() {
+                                location.reload();
+                            });
+                        }
+                    };
+                }
                 
                 var toggle = document.getElementById('toggleGameBtn');
                 if (toggle) {
